@@ -96,7 +96,8 @@ class Usuario
     public static function all()
     {
         $conexao = Conexao::getInstance();
-        $stmt    = $conexao->prepare("SELECT * FROM usuarios;");
+        $stmt = $conexao->prepare(
+    "SELECT * FROM usuarios WHERE excluido = 0;");
         $result  = array();
         if ($stmt->execute()) {
            while ($rs = $stmt->fetchObject(Usuario::class)) {
@@ -131,7 +132,10 @@ class Usuario
     public static function find($id)
     {
         $conexao = Conexao::getInstance();
-        $stmt    = $conexao->prepare("SELECT * FROM usuarios WHERE id='{$id}';");
+        $stmt = $conexao->prepare(
+    "SELECT * FROM usuarios
+     WHERE id='{$id}'
+     AND excluido = 0;");
         if ($stmt->execute()) {
             if ($stmt->rowCount() > 0) {
                 $resultado = $stmt->fetchObject('Usuario');
@@ -148,12 +152,20 @@ class Usuario
      * @param type $id
      * @return boolean
      */
-    public static function destroy($id)
-    {
-        $conexao = Conexao::getInstance();
-        if ($conexao->exec("DELETE FROM usuarios WHERE id='{$id}';")) {
-            return true;
-        }
-        return false;
+   public static function destroy($id)
+{
+    $conexao = Conexao::getInstance();
+
+    if (
+        $conexao->exec(
+            "UPDATE usuarios
+             SET excluido = 1
+             WHERE id='{$id}';"
+        )
+    ) {
+        return true;
     }
+
+    return false;
+}
 }

@@ -29,8 +29,7 @@
                 <label class="col-sm-2 col-form-label text-right">Senha:</label>
                 <input type="password"
                        class="form-control col-sm-8"
-                       name="senha"
-                       value="<?php echo isset($usuario->senha) ? $usuario->senha : null; ?>" />
+                       name="senha"/>
             </div>
 
             <div class="form-group form-row">
