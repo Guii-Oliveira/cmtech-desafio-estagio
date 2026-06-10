@@ -8,6 +8,8 @@ class UsuariosController extends Controller
      */
     public function listar()
     {
+        $this->proteger();
+
         $usuarios = Usuario::all();
         return $this->view('usuarios_grade', ['usuarios' => $usuarios]);
     }
@@ -17,6 +19,8 @@ class UsuariosController extends Controller
      */
     public function criar()
     {
+       $this->proteger();
+
         return $this->view('usuarios_form');
     }
 
@@ -25,6 +29,8 @@ class UsuariosController extends Controller
      */
     public function editar($dados)
     {
+        $this->proteger();
+
         $id      = (int) $dados['id'];
         $usuario = Usuario::find($id);
 
@@ -36,6 +42,8 @@ class UsuariosController extends Controller
      */
     public function salvar()
     {
+        $this->proteger();
+
         $usuario           = new Usuario;
         $usuario->nome     = $this->request->nome;
         $usuario->email    = $this->request->email;
@@ -53,12 +61,14 @@ class UsuariosController extends Controller
      */
     public function atualizar($dados)
     {
+        $this->proteger();
+
         $id                = (int) $dados['id'];
         $usuario           = Usuario::find($id);
         $usuario->nome     = $this->request->nome;
         $usuario->email    = $this->request->email;
         if (!empty($this->request->senha)) {
-        $usuario->senha = password_hash(
+    $usuario->senha = password_hash(
         $this->request->senha,
         PASSWORD_DEFAULT);
         }
@@ -73,6 +83,8 @@ class UsuariosController extends Controller
      */
     public function excluir($dados)
     {
+        $this->proteger();
+
         $id      = (int) $dados['id'];
         $usuario = Usuario::destroy($id);
         return $this->listar();

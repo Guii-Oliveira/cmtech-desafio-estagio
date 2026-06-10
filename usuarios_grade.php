@@ -1,9 +1,18 @@
 <?php
 $usuarios = $usuarios ?? [];
 ?>
-<h1>Usuários</h1>
-<hr>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    
+    <h1>Usuários</h1>
 
+    <a href="?controller=LoginController&method=logout" 
+       class="btn btn-danger btn-sm">
+        Sair
+    </a>
+
+</div>
+
+<hr>
 <div class="container">
     <table class="table table-bordered table-striped">
 

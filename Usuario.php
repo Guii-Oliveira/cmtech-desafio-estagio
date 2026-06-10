@@ -30,30 +30,38 @@ class Usuario
      * Salvar o usuario
      * @return boolean
      */
-    public function save()
-    {
+   public function save()
+{
+    try {
         $colunas = $this->preparar($this->atributos);
+        $conexao = Conexao::getInstance();
+
         if (!isset($this->id)) {
-            $query = "INSERT INTO usuarios (".
-                implode(', ', array_keys($colunas)).
-                ") VALUES (".
-                implode(', ', array_values($colunas)).");";
+            $query = "INSERT INTO usuarios (" .
+                implode(', ', array_keys($colunas)) .
+                ") VALUES (" .
+                implode(', ', array_values($colunas)) .
+                ")";
         } else {
             foreach ($colunas as $key => $value) {
                 if ($key !== 'id') {
                     $definir[] = "{$key}={$value}";
                 }
             }
-            $query = "UPDATE usuarios SET ".implode(', ', $definir)." WHERE id='{$this->id}';";
+
+            $query = "UPDATE usuarios SET " .
+                implode(', ', $definir) .
+                " WHERE id='{$this->id}'";
         }
-        if ($conexao = Conexao::getInstance()) {
-            $stmt = $conexao->prepare($query);
-            if ($stmt->execute()) {
-                return $stmt->rowCount();
-            }
-        }
+
+        $stmt = $conexao->prepare($query);
+        return $stmt->execute();
+
+    } catch (PDOException $e) {
+        error_log("Erro em Usuario::save: " . $e->getMessage());
         return false;
     }
+}
 
     /**
      * Tornar valores aceitos para sintaxe SQL
@@ -94,21 +102,29 @@ class Usuario
      * @return array/boolean
      */
     public static function all()
-    {
+{
+    try {
         $conexao = Conexao::getInstance();
+
         $stmt = $conexao->prepare(
-    "SELECT * FROM usuarios WHERE excluido = 0;");
-        $result  = array();
-        if ($stmt->execute()) {
-           while ($rs = $stmt->fetchObject(Usuario::class)) {
-                $result[] = $rs;
-            }
+            "SELECT * FROM usuarios WHERE excluido = 0"
+        );
+
+        $stmt->execute();
+
+        $result = [];
+
+        while ($rs = $stmt->fetchObject(Usuario::class)) {
+            $result[] = $rs;
         }
-        if (count($result) > 0) {
-            return $result;
-        }
+
+        return count($result) > 0 ? $result : false;
+
+    } catch (PDOException $e) {
+        error_log("Erro em Usuario::all: " . $e->getMessage());
         return false;
     }
+}
 
     /**
      * Retornar o número de registros
@@ -130,42 +146,63 @@ class Usuario
      * @return type
      */
     public static function find($id)
-    {
-        $conexao = Conexao::getInstance();
-        $stmt = $conexao->prepare(
-    "SELECT * FROM usuarios
-     WHERE id='{$id}'
-     AND excluido = 0;");
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                $resultado = $stmt->fetchObject('Usuario');
-                if ($resultado) {
-                    return $resultado;
-                }
-            }
-        }
-        return false;
+{
+    $conexao = Conexao::getInstance();
+
+    $stmt = $conexao->prepare(
+        "SELECT * FROM usuarios 
+         WHERE id = :id 
+         AND excluido = 0"
+    );
+
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        return $stmt->fetchObject('Usuario');
     }
 
+    return false;
+}
+   public static function findByEmail($email)
+{
+    try {
+        $conexao = Conexao::getInstance();
+
+        $stmt = $conexao->prepare(
+            "SELECT * FROM usuarios 
+             WHERE email = :email 
+             AND ativo = 1 
+             AND excluido = 0"
+        );
+
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetchObject('Usuario') ?: false;
+
+    } catch (PDOException $e) {
+        error_log("Erro em findByEmail: " . $e->getMessage());
+        return false;
+    }
+}
     /**
      * Destruir um recurso
      * @param type $id
      * @return boolean
      */
-   public static function destroy($id)
+  public static function destroy($id)
 {
     $conexao = Conexao::getInstance();
 
-    if (
-        $conexao->exec(
-            "UPDATE usuarios
-             SET excluido = 1
-             WHERE id='{$id}';"
-        )
-    ) {
-        return true;
-    }
+    $stmt = $conexao->prepare(
+        "UPDATE usuarios 
+         SET excluido = 1 
+         WHERE id = :id"
+    );
 
-    return false;
+    $stmt->bindValue(':id', $id);
+
+    return $stmt->execute();
 }
 }

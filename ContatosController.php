@@ -8,6 +8,7 @@ class ContatosController extends Controller
      */
     public function listar()
     {
+        $this->proteger();
         $contatos = Contato::all();
         return $this->view('grade', ['contatos' => $contatos]);
     }
@@ -17,6 +18,7 @@ class ContatosController extends Controller
      */
     public function criar()
     {
+        $this->proteger();
         return $this->view('form');
     }
 
@@ -25,6 +27,7 @@ class ContatosController extends Controller
      */
     public function editar($dados)
     {
+        $this->proteger();
         $id      = (int) $dados['id'];
         $contato = Contato::find($id);
 
@@ -36,6 +39,8 @@ class ContatosController extends Controller
      */
     public function salvar()
     {
+        $this->proteger();
+
         $contato           = new Contato;
         $contato->nome     = $this->request->nome;
         $contato->telefone = $this->request->telefone;
@@ -50,6 +55,8 @@ class ContatosController extends Controller
      */
     public function atualizar($dados)
     {
+        $this->proteger();
+
         $id                = (int) $dados['id'];
         $contato           = Contato::find($id);
         $contato->nome     = $this->request->nome;
@@ -65,6 +72,8 @@ class ContatosController extends Controller
      */
     public function excluir($dados)
     {
+        $this->proteger();
+        
         $id      = (int) $dados['id'];
         $contato = Contato::destroy($id);
         return $this->listar();
