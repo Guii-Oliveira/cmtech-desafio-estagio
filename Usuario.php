@@ -36,13 +36,15 @@ class Usuario
         $colunas = $this->preparar($this->atributos);
         $conexao = Conexao::getInstance();
 
-        if (!isset($this->id)) {
-            $query = "INSERT INTO usuarios (" .
-                implode(', ', array_keys($colunas)) .
-                ") VALUES (" .
-                implode(', ', array_values($colunas)) .
-                ")";
-        } else {
+       if (empty($this->atributos['id'])) {
+
+        $query = "INSERT INTO usuarios (" .
+        implode(', ', array_keys($colunas)) .
+        ") VALUES (" .
+        implode(', ', array_values($colunas)) .
+        ")";
+
+        }else {
             foreach ($colunas as $key => $value) {
                 if ($key !== 'id') {
                     $definir[] = "{$key}={$value}";
@@ -50,16 +52,16 @@ class Usuario
             }
 
             $query = "UPDATE usuarios SET " .
-                implode(', ', $definir) .
-                " WHERE id='{$this->id}'";
+            implode(', ', $definir) .
+            " WHERE id='{$this->atributos['id']}'";
         }
 
         $stmt = $conexao->prepare($query);
         return $stmt->execute();
 
     } catch (PDOException $e) {
-        error_log("Erro em Usuario::save: " . $e->getMessage());
-        return false;
+    echo "Erro SQL: " . $e->getMessage();
+    exit;
     }
 }
 
@@ -68,18 +70,22 @@ class Usuario
      * @param type $dados
      * @return string
      */
-    private function escapar($dados)
-    {
-        if (is_string($dados) & !empty($dados)) {
-            return "'".addslashes($dados)."'";
-        } elseif (is_bool($dados)) {
-            return $dados ? 'TRUE' : 'FALSE';
-        } elseif ($dados !== '') {
-            return $dados;
-        } else {
-            return 'NULL';
-        }
+    private function escapar(mixed $dados): string
+{
+    if (is_string($dados) && !empty($dados)) {
+        return "'" . addslashes($dados) . "'";
     }
+
+    if (is_bool($dados)) {
+        return $dados ? 'TRUE' : 'FALSE';
+    }
+
+    if ($dados !== '') {
+        return (string) $dados;
+    }
+
+    return 'NULL';
+}
 
     /**
      * Verifica se dados são próprios para ser salvos

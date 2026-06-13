@@ -60,18 +60,22 @@ class Contato
      * @param type $dados
      * @return string
      */
-    private function escapar($dados)
-    {
-        if (is_string($dados) & !empty($dados)) {
-            return "'".addslashes($dados)."'";
-        } elseif (is_bool($dados)) {
-            return $dados ? 'TRUE' : 'FALSE';
-        } elseif ($dados !== '') {
-            return $dados;
-        } else {
-            return 'NULL';
-        }
+    private function escapar(mixed $dados): string
+{
+    if (is_string($dados) && !empty($dados)) {
+        return "'" . addslashes($dados) . "'";
     }
+
+    if (is_bool($dados)) {
+        return $dados ? 'TRUE' : 'FALSE';
+    }
+
+    if ($dados !== '') {
+        return (string) $dados;
+    }
+
+    return 'NULL';
+}
 
     /**
      * Verifica se dados são próprios para ser salvos
@@ -96,7 +100,9 @@ class Contato
     public static function all()
     {
         $conexao = Conexao::getInstance();
-        $stmt    = $conexao->prepare("SELECT * FROM contatos;");
+       $stmt = $conexao->prepare(
+        "SELECT * FROM contatos WHERE excluido = 0;"
+        );
         $result  = array();
         if ($stmt->execute()) {
             while ($rs = $stmt->fetchObject(Contato::class)) {
@@ -142,18 +148,38 @@ class Contato
         }
         return false;
     }
+   public static function findByEmail($email)
+{
+    $conexao = Conexao::getInstance();
 
+    $stmt = $conexao->prepare(
+        "SELECT * FROM contatos 
+         WHERE email = :email
+         AND excluido = 0"
+    );
+
+    $stmt->bindValue(':email', $email);
+    $stmt->execute();
+
+    return $stmt->fetchObject('Contato') ?: false;
+}
     /**
      * Destruir um recurso
      * @param type $id
      * @return boolean
      */
     public static function destroy($id)
-    {
-        $conexao = Conexao::getInstance();
-        if ($conexao->exec("DELETE FROM contatos WHERE id='{$id}';")) {
-            return true;
-        }
-        return false;
-    }
+{
+    $conexao = Conexao::getInstance();
+
+    $stmt = $conexao->prepare(
+        "UPDATE contatos 
+         SET excluido = 1
+         WHERE id = :id"
+    );
+
+    $stmt->bindValue(':id', $id);
+
+    return $stmt->execute();
+}
 }

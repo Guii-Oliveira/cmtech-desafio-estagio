@@ -37,19 +37,44 @@ class ContatosController extends Controller
     /**
      * Salvar o contato submetido pelo formulário
      */
-    public function salvar()
-    {
-        $this->proteger();
+   public function salvar()
+{
+    $this->proteger();
 
-        $contato           = new Contato;
-        $contato->nome     = $this->request->nome;
-        $contato->telefone = $this->request->telefone;
-        $contato->email    = $this->request->email;
-        if ($contato->save()) {
-            return $this->listar();
-        }
+    $nome = $this->request->nome;
+    $telefone = $this->request->telefone;
+    $email = $this->request->email;
+
+
+    if (
+        empty($nome) ||
+        empty($telefone) ||
+        empty($email)
+    ) {
+        echo "Preencha todos os campos!";
+        return;
     }
 
+
+    $existente = Contato::findByEmail($email);
+
+    if ($existente) {
+        echo "Esse email já está cadastrado!";
+        return;
+    }
+
+
+    $contato = new Contato;
+
+    $contato->nome = $nome;
+    $contato->telefone = $telefone;
+    $contato->email = $email;
+
+
+    if ($contato->save()) {
+        return $this->listar();
+    }
+}
     /**
      * Atualizar o contato conforme dados submetidos
      */

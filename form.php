@@ -8,28 +8,51 @@
             </div>
             <div class="form-group form-row">
                 <label class="col-sm-2 col-form-label text-right">Nome:</label>
-                <input type="text" class="form-control col-sm-8" name="nome" id="nome" value="<?php
+                <input type="text" 
+                class="form-control col-sm-8" 
+                name="nome" 
+                id="nome"
+                required value="<?php
                 echo isset($contato->nome) ? $contato->nome : null;
                 ?>" />
             </div>
             <div class="form-group form-row">
                 <label class="col-sm-2 col-form-label text-right">Telefone:</label>
-                <input type="text" class="form-control col-sm-8" name="telefone" id="telefone" value="<?php
-                echo isset($contato->telefone) ? $contato->telefone : null;
-                ?>" />
+                <input type="text" 
+                class="form-control col-sm-8" 
+                name="telefone" 
+                id="telefone"
+                required
+                value="<?php echo isset($contato->telefone) ? $contato->telefone : null; ?>" />
             </div>
             <div class="form-group form-row">
                 <label class="col-sm-2 col-form-label text-right">Email:</label>
-                <input type="text" class="form-control col-sm-8" name="email" id="email" value="<?php
+               <input type="email" 
+                class="form-control col-sm-8" 
+                name="email" 
+                id="email"
+                required value="<?php
                 echo isset($contato->email) ? $contato->email : null;
                 ?>" />
             </div>
             <div class="card-footer">
                 <input type="hidden" name="id" id="id" value="<?php echo isset($contato->id) ? $contato->id : null; ?>" />
                 <button class="btn btn-success" type="submit">Salvar</button>
-                <button class="btn btn-secondary">Limpar</button>
+                <button 
+                class="btn btn-secondary" 
+                type="button" 
+                onclick="limparFormulario()">Limpar</button>
                 <a class="btn btn-danger" href="?controller=ContatosController&method=listar">Cancelar</a>
             </div>
         </div>
     </form>
 </div>
+<script>
+function limparFormulario() {
+
+    document.getElementById('nome').value = '';
+    document.getElementById('telefone').value = '';
+    document.getElementById('email').value = '';
+
+}
+</script>

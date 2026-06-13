@@ -41,20 +41,36 @@ class UsuariosController extends Controller
      * Salvar o usuario submetido pelo formulário
      */
     public function salvar()
-    {
-        $this->proteger();
+{
+    $this->proteger();
 
-        $usuario           = new Usuario;
-        $usuario->nome     = $this->request->nome;
-        $usuario->email    = $this->request->email;
-       $usuario->senha     = password_hash(
-        $this->request->senha,
-        PASSWORD_DEFAULT);
-        $usuario->ativo = $this->request->ativo;
-        if ($usuario->save()) {
-            return $this->listar();
-        }
+    $usuarioExistente = Usuario::findByEmail($this->request->email);
+
+    if ($usuarioExistente) {
+        echo "Este email já está cadastrado!";
+        exit;
     }
+
+
+    $usuario = new Usuario;
+
+    $usuario->nome = $this->request->nome;
+    $usuario->email = $this->request->email;
+
+    $usuario->senha = password_hash(
+        $this->request->senha,
+        PASSWORD_DEFAULT
+    );
+
+    $usuario->ativo = $this->request->ativo;
+
+
+    if ($usuario->save()) {
+        return $this->listar();
+    }
+
+    echo "Erro ao salvar usuário";
+}
 
     /**
      * Atualizar o usuario conforme dados submetidos
