@@ -40,10 +40,24 @@ class UsuariosController extends Controller
     /**
      * Salvar o usuario submetido pelo formulário
      */
-    public function salvar()
+   public function salvar()
 {
     $this->proteger();
 
+    $nome = $this->request->nome;
+    $email = $this->request->email;
+    $senha = $this->request->senha;
+    $ativo = $this->request->ativo;
+
+    if (
+    empty($nome) ||
+    empty($email) ||
+    empty($senha) ||
+    $ativo === ''
+) {
+    echo "Preencha todos os campos!";
+    return;
+}
     $usuarioExistente = Usuario::findByEmail($this->request->email);
 
     if ($usuarioExistente) {

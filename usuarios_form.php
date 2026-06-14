@@ -12,9 +12,10 @@
             <div class="form-group form-row">
                 <label class="col-sm-2 col-form-label text-right">Nome:</label>
                 <input type="text"
-                       class="form-control col-sm-8"
-                       name="nome"
-                       value="<?php echo isset($usuario->nome) ? $usuario->nome : null; ?>" />
+                class="form-control col-sm-8"
+                name="nome"
+                required
+                value="<?php echo isset($usuario->nome) ? $usuario->nome : ''; ?>" />
             </div>
 
             <div class="form-group form-row">
@@ -22,6 +23,7 @@
                 <input type="text"
                        class="form-control col-sm-8"
                        name="email"
+                       required
                        value="<?php echo isset($usuario->email) ? $usuario->email : null; ?>" />
             </div>
 
@@ -29,7 +31,8 @@
                 <label class="col-sm-2 col-form-label text-right">Senha:</label>
                 <input type="password"
                        class="form-control col-sm-8"
-                       name="senha"/>
+                       name="senha"
+                       required/>
             </div>
 
             <div class="form-group form-row">
@@ -51,6 +54,7 @@
             <div class="card-footer">
                 <input type="hidden"
                        name="id"
+                       required
                        value="<?php echo isset($usuario->id) ? $usuario->id : null; ?>" />
 
                 <button class="btn btn-success" type="submit">Salvar</button>
