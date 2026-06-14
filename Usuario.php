@@ -1,7 +1,7 @@
 <?php
 
 
-class Contato
+class Usuario
 {
     private $atributos;
 
@@ -27,33 +27,43 @@ class Contato
     }
 
     /**
-     * Salvar o contato
+     * Salvar o usuario
      * @return boolean
      */
-    public function save()
-    {
+   public function save()
+{
+    try {
         $colunas = $this->preparar($this->atributos);
-        if (!isset($this->id)) {
-            $query = "INSERT INTO contatos (".
-                implode(', ', array_keys($colunas)).
-                ") VALUES (".
-                implode(', ', array_values($colunas)).");";
-        } else {
+        $conexao = Conexao::getInstance();
+
+       if (empty($this->atributos['id'])) {
+
+        $query = "INSERT INTO usuarios (" .
+        implode(', ', array_keys($colunas)) .
+        ") VALUES (" .
+        implode(', ', array_values($colunas)) .
+        ")";
+
+        }else {
             foreach ($colunas as $key => $value) {
                 if ($key !== 'id') {
                     $definir[] = "{$key}={$value}";
                 }
             }
-            $query = "UPDATE contatos SET ".implode(', ', $definir)." WHERE id='{$this->id}';";
+
+            $query = "UPDATE usuarios SET " .
+            implode(', ', $definir) .
+            " WHERE id='{$this->atributos['id']}'";
         }
-        if ($conexao = Conexao::getInstance()) {
-            $stmt = $conexao->prepare($query);
-            if ($stmt->execute()) {
-                return $stmt->rowCount();
-            }
-        }
-        return false;
+
+        $stmt = $conexao->prepare($query);
+        return $stmt->execute();
+
+    } catch (PDOException $e) {
+    echo "Erro SQL: " . $e->getMessage();
+    exit;
     }
+}
 
     /**
      * Tornar valores aceitos para sintaxe SQL
@@ -94,26 +104,33 @@ class Contato
     }
 
     /**
-     * Retorna uma lista de contatos
+     * Retorna uma lista de usuarios
      * @return array/boolean
      */
     public static function all()
-    {
+{
+    try {
         $conexao = Conexao::getInstance();
-       $stmt = $conexao->prepare(
-        "SELECT * FROM contatos WHERE excluido = 0;"
+
+        $stmt = $conexao->prepare(
+            "SELECT * FROM usuarios WHERE excluido = 0"
         );
-        $result  = array();
-        if ($stmt->execute()) {
-            while ($rs = $stmt->fetchObject(Contato::class)) {
-                $result[] = $rs;
-            }
+
+        $stmt->execute();
+
+        $result = [];
+
+        while ($rs = $stmt->fetchObject(Usuario::class)) {
+            $result[] = $rs;
         }
-        if (count($result) > 0) {
-            return $result;
-        }
+
+        return count($result) > 0 ? $result : false;
+
+    } catch (PDOException $e) {
+        error_log("Erro em Usuario::all: " . $e->getMessage());
         return false;
     }
+}
 
     /**
      * Retornar o número de registros
@@ -122,7 +139,7 @@ class Contato
     public static function count()
     {
         $conexao = Conexao::getInstance();
-        $count   = $conexao->exec("SELECT count(*) FROM contatos;");
+        $count   = $conexao->exec("SELECT count(*) FROM usuarios;");
         if ($count) {
             return (int) $count;
         }
@@ -135,46 +152,58 @@ class Contato
      * @return type
      */
     public static function find($id)
-    {
-        $conexao = Conexao::getInstance();
-        $stmt    = $conexao->prepare("SELECT * FROM contatos WHERE id='{$id}';");
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                $resultado = $stmt->fetchObject('Contato');
-                if ($resultado) {
-                    return $resultado;
-                }
-            }
-        }
-        return false;
-    }
-   public static function findByEmail($email)
 {
     $conexao = Conexao::getInstance();
 
     $stmt = $conexao->prepare(
-        "SELECT * FROM contatos 
-         WHERE email = :email
+        "SELECT * FROM usuarios 
+         WHERE id = :id 
          AND excluido = 0"
     );
 
-    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':id', $id);
     $stmt->execute();
 
-    return $stmt->fetchObject('Contato') ?: false;
+    if ($stmt->rowCount() > 0) {
+        return $stmt->fetchObject('Usuario');
+    }
+
+    return false;
+}
+   public static function findByEmail($email)
+{
+    try {
+        $conexao = Conexao::getInstance();
+
+        $stmt = $conexao->prepare(
+            "SELECT * FROM usuarios 
+             WHERE email = :email 
+             AND ativo = 1 
+             AND excluido = 0"
+        );
+
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetchObject('Usuario') ?: false;
+
+    } catch (PDOException $e) {
+        error_log("Erro em findByEmail: " . $e->getMessage());
+        return false;
+    }
 }
     /**
      * Destruir um recurso
      * @param type $id
      * @return boolean
      */
-    public static function destroy($id)
+  public static function destroy($id)
 {
     $conexao = Conexao::getInstance();
 
     $stmt = $conexao->prepare(
-        "UPDATE contatos 
-         SET excluido = 1
+        "UPDATE usuarios 
+         SET excluido = 1 
          WHERE id = :id"
     );
 

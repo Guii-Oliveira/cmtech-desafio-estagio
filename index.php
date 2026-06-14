@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_GET['controller'])) {
+    $_GET['controller'] = 'LoginController';
+    $_GET['method'] = 'index';
+}
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 

@@ -1,158 +1,250 @@
-# Teste prático para desenvolvedores
+# Teste Prático CMTECH - Estágio
 
-<img src="https://www.cmtech.com.br/site/2021/wp-content/themes/cmtech/assets/img/brand_cmtech.svg" alt="CMTECH">
-<img src="https://mexx.ai/wp-content/uploads/2021/12/Logo-MEXX.png" width="245" height="86" alt="Mexx">
+## Autor
 
+Guilherme Oliveira
 
-<!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
+---
 
-> Teste prático CMTECH para novos colaboradores. Fique atento para o seu perfil, estágio ou CLT. Estágio deve ficar apenas nos requisitos da seção "💻 Estágio".
+# Tecnologias Utilizadas
 
-### História do usuário
+- PHP
+- MySQL
+- HTML
+- Bootstrap
+- XAMPP
+- Java Script
+- Git e GitHub
 
-O teste se baseia nos seguintes requisitos abaixo, a depender do perfil:
+---
 
-- [ ] Login no sistema
-- [ ] CRUD de usuários
-- [ ] Excluir Usuário
-- [ ] CRUD de contatos(melhorias)
+# Como executar o projeto
 
-## 💻 Estágio
+## Pré-requisitos
 
-Esta é um exercício para testar seus conhecimentos básicos de PHP, MySQL e padrões de projeto. Sua tarefa consiste em:
+- PHP 8+
+- MySQL
+- Apache
+- XAMPP (ou ambiente equivalente)
 
-Criar uma tabela de usuários no banco de dados;
-A tabela deve conter NOME, EMAIL, SENHA, ATIVO, DATA DE CRIAÇÃO e DATA DE ATUALIZAÇÃO;
-Você deverá fazer o CRUD (Create, Read, Update e Delete) dessa tabela em questão;
+## Instalação
 
-Observe que já tem um CRUD de contatos, então queremos melhorá-lo.
+## 1. Clonar o repositório
 
-O que você faria para melhorá-lo?
-Como fazer uma alteração para incluir uma exclusão lógica nesse modelo?
-Quais padrões de projetos você identifica nesse projeto e quais você poderia implementar?
-Como incluir tratamento de exceção?
-
-Você terá um total de 4 dias para implementar a solução. Não se preocupe com layout. O importante é o domínio das questões técnicas levantadas. Boa sorte! :)
-
-
- 
-## 🚀 CLT
-
-Esta é um exercício para testar seus conhecimentos básicos de PHP, MySQL e padrões de projeto. Sua tarefa consiste em:
-
-
-Criar uma tabela de usuários no banco de dados;
-
-
-A tabela deve conter NOME, EMAIL, SENHA, ATIVO, DATA DE CRIAÇÃO e DATA DE ATUALIZAÇÃO;
-
-
-Você deverá fazer o CRUD (Create, Read, Update e Delete) dessa tabela em questão;
-
-
-Criar uma tabela de telefones no banco de dados;
-
-
-A tabela deve conter TELEFONE, ATIVO, DATA DE CRIAÇÃO e DATA DE ATUALIZAÇÃO;
-
-
-Altere o cadastro de contatos inicial para permitir que o usuário tenha vários números de telefone cadastrados;
-
-
-Bônus
-
-
-Implemente um cadastro de múltiplos endereços para o usuário;
-
-
-Esses cadastros devem buscar o CEP na api https://viacep.com.br/ e retornar os dados restante automaticamente.
-
-
-No cadastro de usuários, valide se já existe um email cadastrado igual ao que ele esteja cadastrando.
-
-
-Observe que já tem um CRUD de contatos, então queremos melhorá-lo.
-
-
-O que você faria para melhorá-lo?
-
-
-Como fazer uma alteração para incluir uma exclusão lógica nesse modelo?
-
-
-Quais padrões de projetos você identifica nesse projeto e quais você poderia implementar?
-
-
-Como incluir tratamento de exceção?
-
-
-Pode responder essas perguntas num .txt, colocar na pasta do projeto e commitar.
-Você terá um total de 4 dias para implementar a solução. Não se preocupe com layout. O importante é o domínio das questões técnicas levantadas. Que a força esteja com você! :)
-
-## Lógica e Banco de dados
-
-1) Refatore o seguinte programa visando torná-lo mais legível, manutenível e reaproveitável.
-
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_1.png" alt="">
-
-2) Corrija o programa abaixo para que ele imprima os dez primeiros múltiplos positivos de 4 e 5.
-
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_2.png" alt="">
-
-3) Descreva detalhadamente o que o seguinte programa faz.
-
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_3.png" alt="">
-
-# Responda as questões sobre banco de dados
-
-1) Questão um
-
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_4.png" alt="">
-
-
-2) Questão dois
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_5.png" alt="">
-
-
-3) Questão três
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_6.png" alt="">
-
-
-4) Questão quatro
-<img src="http://cmtech.com.br/recrutamento/imagens/questao_7.png" alt="">
-
-
-## ☕ Instruções Gerais
-
-Segue instruções que irão lhe ajudar no teste:
-
-```
-O código deverá ser colocado em seu Github;
- 
-Na pasta raiz do Github, deverá conter um arquivo chamado README.MD com instruções para que possamos executar o projeto em nosso computador;
- 
-Caso você tenha alguma dificuldade em atender a todos os requisitos deste projeto, não se preocupe. O ideal é que você faça o máximo que conseguir. Se houver dificuldades, faça uma compilação das mesmas no README.MD para que possamos discutir na sua apresentação; 
-
-O mais importante é não deixar de enviar o projeto, mesmo que falte algum requisito;
-
- Você deverá enviar o link do repositório do github através de um e-mail;
+```bash
+git clone https://github.com/Guii-Oliveira/cmtech-desafio-estagio.git
 ```
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
+## 2. Copiar o projeto para o diretório htdocs
 
-## 📫 Alguns Critérios de Avaliação
-Criatividade
+Mover a pasta do projeto para o diretório `htdocs` do XAMPP.
 
-1. Código limpo 
-2. Qualidade, modularidade, legibilidade e organização do código
-3. Documentação do código
-4. Documentação do projeto (README.MD)
-5. Performance da aplicação
-6. Quantidade de funcionalidades básicas e extras
+## 3. Criar o banco de dados
 
-## 🤝 Tecnologias que você deverá utilizar
+Criar um banco MySQL utilizando o phpMyAdmin.
 
-Frontend: HTML, CSS e Javascript ou ReactJS;<br>
-Backend:  <strong>Obrigatoriamente PHP, de preferência usando o framework ScriptCase(https://www.scriptcase.com.br/);</strong>
+## 4. Importar o banco
 
-[⬆ Voltar ao topo](#nome-do-projeto)<br>
+Importar o arquivo SQL disponibilizado no projeto.
+
+## 5. Configurar a conexão
+
+Configurar usuário, senha e banco de dados no arquivo de conexão da aplicação.
+
+## 6. Iniciar os serviços
+
+Iniciar Apache e MySQL através do XAMPP.
+
+## 7. Acessar a aplicação
+
+```text
+http://localhost/teste-php-main
+```
+
+Caso necessário:
+
+```text
+http://localhost/teste-php-main/?controller=UsuariosController&method=listar
+```
+
+Se o usuário não estiver autenticado, será redirecionado para a tela de login.
+```
+---
+
+# Funcionalidades Implementadas
+
+## Login
+
+- Autenticação de usuários utilizando email e senha.
+- Controle de sessão.
+- Proteção de rotas para usuários não autenticados.
+
+## CRUD de Usuários
+
+Implementado o CRUD completo para usuários:
+
+- Criar usuário
+- Listar usuários
+- Editar usuário
+- Excluir usuário
+
+Campos da tabela:
+
+- Nome
+- Email
+- Senha
+- Ativo
+- Data de Criação
+- Data de Atualização
+- Limpeza automática dos campos do formulário utilizando JavaScript.
+
+## Validações Implementadas
+
+### Usuários
+
+- Não permite cadastro com campos obrigatórios vazios.
+- Validação de preenchimento através do atributo `required`.
+- Validação adicional realizada no backend.
+- Não permite cadastro de usuários com email duplicado.
+
+### Contatos
+
+- Mantida a validação obrigatória dos campos.
+- Melhorias na consistência do processo de cadastro.
+
+---
+
+# Respostas às Perguntas do Desafio
+
+## O que você faria para melhorar o CRUD de contatos?
+
+Durante o desenvolvimento implementei algumas melhorias:
+
+- Validação de preenchimento obrigatório dos campos.
+- Utilização do atributo `required` nos formulários.
+- Limpeza automática dos campos do formulário utilizando JavaScript.
+- Melhoria na consistência das validações realizadas no sistema.
+
+Além das melhorias implementadas, eu também poderia evoluir o CRUD com:
+
+- Validação de formato de email.
+- Máscara para telefone.
+- Pesquisa de contatos por nome.
+- Paginação da listagem.
+- Exclusão lógica dos registros.
+- Tratamento de exceções.
+- Mensagens de feedback mais amigáveis para o usuário.
+---
+
+## Como fazer uma alteração para incluir exclusão lógica?
+
+Uma abordagem seria adicionar um campo na tabela:
+
+```sql
+ativo TINYINT(1)
+```
+
+ou
+
+```sql
+deleted_at DATETIME NULL
+```
+
+Ao excluir um registro, em vez de removê-lo do banco:
+
+```sql
+UPDATE contatos
+SET ativo = 0
+WHERE id = ?
+```
+
+Assim o registro permanece armazenado para auditoria e recuperação futura.
+
+---
+
+## Quais padrões de projeto você identifica nesse projeto?
+
+Padrões identificados:
+
+### MVC (Model-View-Controller)
+
+Separação entre:
+
+- Models
+- Views
+- Controllers
+
+### Front Controller
+
+O arquivo principal centraliza as requisições e direciona para os controllers adequados.
+
+### Active Record
+
+Os Models realizam diretamente operações de consulta e persistência no banco de dados.
+
+---
+
+## Quais padrões de projeto poderiam ser implementados?
+
+Algumas melhorias possíveis:
+
+### Repository Pattern
+
+Responsável por centralizar consultas ao banco.
+
+### Service Layer
+
+Separação das regras de negócio dos controllers.
+
+### Dependency Injection
+
+Redução de acoplamento entre classes.
+
+### Singleton
+
+Para gerenciamento da conexão com o banco.
+
+### Strategy Pattern
+
+Para diferentes regras de validação.
+
+---
+
+## Como incluir tratamento de exceção?
+
+Utilizando blocos try/catch:
+
+```php
+try {
+    $usuario->save();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
+Também poderiam ser criadas exceções personalizadas para regras específicas do sistema.
+
+---
+
+# Melhorias Implementadas Durante o Desafio
+
+- Implementação do CRUD completo de usuários.
+- Criptografia de senha utilizando `password_hash()`.
+- Validação de email duplicado.
+- Proteção de rotas através de sessão.
+- Validação obrigatória dos campos do formulário de usuários.
+- Ajustes na navegação e autenticação do sistema.
+
+---
+
+# Dificuldades Encontradas
+
+Durante o desenvolvimento foram realizados ajustes relacionados à autenticação, controle de sessão e validação dos formulários.
+
+As funcionalidades principais solicitadas para a etapa de estágio foram implementadas seguindo a estrutura original do projeto.
+
+---
+
+# Considerações Finais
+
+O desenvolvimento foi realizado buscando manter a arquitetura original do sistema e aplicar boas práticas básicas de organização, validação e segurança, compatíveis com o escopo proposto para a vaga de estágio.

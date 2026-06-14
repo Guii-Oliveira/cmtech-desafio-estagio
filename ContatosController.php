@@ -8,6 +8,7 @@ class ContatosController extends Controller
      */
     public function listar()
     {
+        $this->proteger();
         $contatos = Contato::all();
         return $this->view('grade', ['contatos' => $contatos]);
     }
@@ -17,6 +18,7 @@ class ContatosController extends Controller
      */
     public function criar()
     {
+        $this->proteger();
         return $this->view('form');
     }
 
@@ -25,6 +27,7 @@ class ContatosController extends Controller
      */
     public function editar($dados)
     {
+        $this->proteger();
         $id      = (int) $dados['id'];
         $contato = Contato::find($id);
 
@@ -34,22 +37,51 @@ class ContatosController extends Controller
     /**
      * Salvar o contato submetido pelo formulário
      */
-    public function salvar()
-    {
-        $contato           = new Contato;
-        $contato->nome     = $this->request->nome;
-        $contato->telefone = $this->request->telefone;
-        $contato->email    = $this->request->email;
-        if ($contato->save()) {
-            return $this->listar();
-        }
+   public function salvar()
+{
+    $this->proteger();
+
+    $nome = $this->request->nome;
+    $telefone = $this->request->telefone;
+    $email = $this->request->email;
+
+
+    if (
+        empty($nome) ||
+        empty($telefone) ||
+        empty($email)
+    ) {
+        echo "Preencha todos os campos!";
+        return;
     }
 
+
+    $existente = Contato::findByEmail($email);
+
+    if ($existente) {
+        echo "Esse email já está cadastrado!";
+        return;
+    }
+
+
+    $contato = new Contato;
+
+    $contato->nome = $nome;
+    $contato->telefone = $telefone;
+    $contato->email = $email;
+
+
+    if ($contato->save()) {
+        return $this->listar();
+    }
+}
     /**
      * Atualizar o contato conforme dados submetidos
      */
     public function atualizar($dados)
     {
+        $this->proteger();
+
         $id                = (int) $dados['id'];
         $contato           = Contato::find($id);
         $contato->nome     = $this->request->nome;
@@ -65,6 +97,8 @@ class ContatosController extends Controller
      */
     public function excluir($dados)
     {
+        $this->proteger();
+        
         $id      = (int) $dados['id'];
         $contato = Contato::destroy($id);
         return $this->listar();
