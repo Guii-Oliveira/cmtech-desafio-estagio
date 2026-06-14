@@ -29,28 +29,46 @@ Guilherme Oliveira
 
 ## Instalação
 
-1. Clone o repositório:
+## 1. Clonar o repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/Guii-Oliveira/cmtech-desafio-estagio.git
 ```
 
-2. Mova o projeto para a pasta `htdocs` do XAMPP.
+## 2. Copiar o projeto para o diretório htdocs
 
-3. Crie um banco de dados MySQL.
+Mover a pasta do projeto para o diretório `htdocs` do XAMPP.
 
-4. Importe o arquivo SQL disponibilizado no projeto.
+## 3. Criar o banco de dados
 
-5. Configure as credenciais de acesso ao banco de dados no arquivo de conexão.
+Criar um banco MySQL utilizando o phpMyAdmin.
 
-6. Inicie os serviços Apache e MySQL.
+## 4. Importar o banco
 
-7. Acesse o sistema:
+Importar o arquivo SQL disponibilizado no projeto.
+
+## 5. Configurar a conexão
+
+Configurar usuário, senha e banco de dados no arquivo de conexão da aplicação.
+
+## 6. Iniciar os serviços
+
+Iniciar Apache e MySQL através do XAMPP.
+
+## 7. Acessar a aplicação
 
 ```text
 http://localhost/teste-php-main
 ```
 
+Caso necessário:
+
+```text
+http://localhost/teste-php-main/?controller=UsuariosController&method=listar
+```
+
+Se o usuário não estiver autenticado, será redirecionado para a tela de login.
+```
 ---
 
 # Funcionalidades Implementadas
