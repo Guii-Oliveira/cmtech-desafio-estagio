@@ -68,7 +68,7 @@ http://localhost/teste-php-main/?controller=UsuariosController&method=listar
 ```
 
 Se o usuário não estiver autenticado, será redirecionado para a tela de login.
-```
+
 ---
 
 # Funcionalidades Implementadas
