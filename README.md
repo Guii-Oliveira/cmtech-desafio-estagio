@@ -43,13 +43,25 @@ Mover a pasta do projeto para o diretório `htdocs` do XAMPP.
 
 Criar um banco MySQL utilizando o phpMyAdmin.
 
+```text
+crud_contatos
+```
+
 ## 4. Importar o banco
 
 Importar o arquivo SQL disponibilizado no projeto.
 
+```text
+bd.sql
+```
+
 ## 5. Configurar a conexão
 
 Configurar usuário, senha e banco de dados no arquivo de conexão da aplicação.
+
+```text
+Conexao.ph
+```
 
 ## 6. Iniciar os serviços
 
@@ -58,13 +70,13 @@ Iniciar Apache e MySQL através do XAMPP.
 ## 7. Acessar a aplicação
 
 ```text
-http://localhost/teste-php-main
+http://localhost/cmtech-desafio-estagio
 ```
 
 Caso necessário:
 
 ```text
-http://localhost/teste-php-main/?controller=UsuariosController&method=listar
+http://localhost/cmtech-desafio-estagio/?controller=UsuariosController&method=listar
 ```
 
 Se o usuário não estiver autenticado, será redirecionado para a tela de login.
